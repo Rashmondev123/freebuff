@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeBuff</title>
+
+    <!-- Google Fonts: our three typefaces from the design system -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top header: logo + balance, always visible -->
+    <header class="site-header">
+        <div class="logo">FreeBuff</div>
+        <div class="balance" id="balance-display">₦1,000.00</div>
+    </header>
+
+    <main>
+        <h1 class="page-title">Today's Games</h1>
+
+        <!-- League tabs will go here later -->
+        <div class="league-tabs" id="league-tabs">
+            <button class="tab active">EPL</button>
+        </div>
+
+        <!-- This is where JavaScript will insert game cards -->
+        <div id="games-container">
+            <p class="loading-text">Loading games...</p>
+        </div>
+    </main>
+
+    <!-- Betslip drawer — hidden until a game is selected -->
+    <div id="betslip-drawer" class="betslip-drawer hidden">
+        <div class="betslip-header">
+            <span>Your Betslip</span>
+            <button id="close-betslip">✕</button>
+        </div>
+        <div id="betslip-selections"></div>
+        <div class="betslip-stake">
+            <label for="stake-input">Stake</label>
+            <input type="number" id="stake-input" placeholder="0.00">
+        </div>
+        <div class="betslip-payout">
+            Potential payout: <span id="potential-payout">₦0.00</span>
+        </div>
+        <button id="place-bet-btn" class="place-bet-btn">Place Bet</button>
+    </div>
+
+    <!-- Bottom nav (mobile) -->
+ <nav class="bottom-nav">
+    <a href="index.html" class="nav-item active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>Home</span>
+    </a>
+    <a href="open-bets.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <span>Open Bets</span>
+    </a>
+    <a href="history.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span>History</span>
+    </a>
+    <a href="insights.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <span>Insights</span>
+    </a>
+    <a href="leaderboard.html" class="nav-item">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 4h3a2 2 0 0 1-2 4M7 4H4a2 2 0 0 0 2 4"/></svg>
+    <span>Leaders</span>
+</a>
+</nav>
+    <!-- Toast notifications appear here -->
+    <div id="toast-container"></div>
+
+    <script src="bets-common.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
