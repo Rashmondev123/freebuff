@@ -4,15 +4,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-conn = psycopg2.connect(
-    dbname=os.getenv("DB_NAME"),
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD"),
-    host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT")
-)
+conn = psycopg2.connect(os.getenv("DATABASE_URL"))
 
 cur = conn.cursor()
+
+create_users_table = """
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    balance NUMERIC DEFAULT 1000000,
+    created_at TIMESTAMP DEFAULT NOW(),
+    display_name TEXT
+);
+"""
 
 create_bet_slips_table = """
 CREATE TABLE IF NOT EXISTS bet_slips (
@@ -23,7 +28,8 @@ CREATE TABLE IF NOT EXISTS bet_slips (
     potential_payout NUMERIC NOT NULL,
     status TEXT DEFAULT 'pending',
     date_placed TIMESTAMP DEFAULT NOW(),
-    date_settled TIMESTAMP
+    date_settled TIMESTAMP,
+    share_code TEXT UNIQUE
 );
 """
 
@@ -40,12 +46,13 @@ CREATE TABLE IF NOT EXISTS selections (
 );
 """
 
+cur.execute(create_users_table)
 cur.execute(create_bet_slips_table)
 cur.execute(create_selections_table)
 
 conn.commit()
 
-print("bet_slips and selections tables created successfully!")
+print("All tables created successfully on Neon!")
 
 cur.close()
 conn.close()
